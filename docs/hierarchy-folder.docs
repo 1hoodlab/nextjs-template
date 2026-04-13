@@ -37,7 +37,11 @@
 │   ├── layout.tsx                  # Root layout
 │   ├── loading.tsx                 # Loading UI
 │   ├── not-found.tsx              # 404 page
-│   └── page.tsx                   # Home page
+│   └── page.tsx                   # Home route (imports HomeView from views/)
+│
+├── views/                         # FSD views layer — screen-level UI composition
+│   └── home/
+│       └── home-view.tsx          # Home screen
 │
 ├── features/                      # Feature modules
 │   ├── auth/
@@ -142,7 +146,7 @@
 │       ├── format.ts
 │       └── validation.ts
 │
-├── widgets/                      # Complex shared components
+├── widgets/                      # FSD widgets layer (composite blocks; not under shared/)
 │   ├── layouts/                  # Layout components
 │   │   ├── dashboard-layout/
 │   │   │   ├── index.tsx
