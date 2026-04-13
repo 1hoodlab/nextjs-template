@@ -75,7 +75,6 @@ export const mockAuthService = {
   // Register new user
   register: async ({
     email,
-    password,
     name,
   }: {
     email: string;
@@ -129,7 +128,7 @@ export const mockAuthService = {
       }
 
       return user;
-    } catch (error) {
+    } catch {
       removeToken();
       return null;
     }

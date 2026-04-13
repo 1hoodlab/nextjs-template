@@ -14,20 +14,20 @@ import {
 } from "../model/slice";
 import { mockAuthService } from "../../../shared/api/mock/auth-service";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../model/types";
 import { SagaGenerator } from "../../../shared/lib/redux/saga-types";
 
 // Handle login
 function* handleLogin(
   action: PayloadAction<{ email: string; password: string }>
-): SagaGenerator<User> {
+): SagaGenerator {
   try {
     const user = yield call(mockAuthService.login, action.payload);
 
     yield put(loginSuccess(user));
-  } catch (error: any) {
-    // Dispatch failure action with error message
-    yield put(loginFailure(error.message || "Login failed"));
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Login failed";
+    yield put(loginFailure(message || "Login failed"));
   }
 }
 
@@ -43,17 +43,19 @@ function* handleLogout(): SagaGenerator {
 // Handle registration
 function* handleRegister(
   action: PayloadAction<{ email: string; password: string; name: string }>
-): SagaGenerator<User> {
+): SagaGenerator {
   try {
     const user = yield call(mockAuthService.register, action.payload);
     yield put(registerSuccess(user));
-  } catch (error: any) {
-    yield put(registerFailure(error.message || "Registration failed"));
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Registration failed";
+    yield put(registerFailure(message || "Registration failed"));
   }
 }
 
 // Handle auth status check
-function* handleCheckAuthStatus(): SagaGenerator<User | null> {
+function* handleCheckAuthStatus(): SagaGenerator {
   try {
     const user = yield call(mockAuthService.getCurrentUser);
 
@@ -62,7 +64,7 @@ function* handleCheckAuthStatus(): SagaGenerator<User | null> {
     } else {
       yield put(authStatusFailure());
     }
-  } catch (error) {
+  } catch {
     yield put(authStatusFailure());
   }
 }

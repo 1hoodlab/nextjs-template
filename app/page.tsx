@@ -1,11 +1,10 @@
 "use client";
 import { loginRequest } from "@/features/auth/model/slice";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/use-store";
+import { useAppDispatch } from "@/shared/hooks/use-store";
 import Image from "next/image";
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const { isLoading, error, user } = useAppSelector((state) => state.auth);
 
   const handleLogin = () => {
     console.log("Logging in...");
