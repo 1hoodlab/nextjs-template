@@ -5,33 +5,18 @@
 │
 ├── app/                             # Next.js App Router
 │   ├── (auth)/                      # Auth route group
-│   │   ├── login/
-│   │   │   ├── components/
-│   │   │   │   └── login-form.tsx
-│   │   │   └── page.tsx
-│   │   ├── register/
-│   │   │   ├── components/
-│   │   │   │   └── register-form.tsx
-│   │   │   └── page.tsx
+│   │   ├── login/page.tsx
+│   │   ├── register/page.tsx
 │   │   └── layout.tsx
 │   │
 │   ├── (dashboard)/                # Dashboard route group
-│   │   ├── analytics/
-│   │   │   └── page.tsx
-│   │   ├── products/
-│   │   │   ├── [id]/
-│   │   │   │   └── page.tsx
-│   │   │   └── page.tsx
-│   │   ├── settings/
-│   │   │   └── page.tsx
+│   │   ├── analytics/page.tsx
+│   │   ├── products/[id]/page.tsx
+│   │   ├── settings/page.tsx
 │   │   └── layout.tsx
 │   │
 │   ├── api/                        # API routes
-│   │   ├── auth/
-│   │   │   └── [...nextauth]/
-│   │   │       └── route.ts
-│   │   └── graphql/
-│   │       └── route.ts
+│   │   └── graphql/route.ts
 │   │
 │   ├── error.tsx                   # Error boundary
 │   ├── layout.tsx                  # Root layout
@@ -43,143 +28,79 @@
 │   └── home/
 │       └── home-view.tsx          # Home screen
 │
-├── features/                      # Feature modules
+├── features/                      # Feature modules (UI + feature logic)
 │   ├── auth/
 │   │   ├── components/            # Feature-specific components
 │   │   │   ├── login-form/
-│   │   │   │   ├── index.tsx
-│   │   │   │   ├── login-form.test.tsx
-│   │   │   │   └── styles.ts
 │   │   │   └── register-form/
-│   │   │
-│   │   ├── graphql/              # Feature-specific GraphQL operations
-│   │   │   ├── mutations/
-│   │   │   │   ├── login.graphql
-│   │   │   │   └── register.graphql
-│   │   │   └── queries/
-│   │   │       └── me.graphql
-│   │   │
-│   │   ├── model/                # Feature business logic
-│   │   │   ├── selectors.ts
-│   │   │   ├── slice.ts
-│   │   │   └── types.ts
-│   │   │
-│   │   └── sagas/                # Feature sagas
-│   │       └── auth.saga.ts
-│   │
-│   ├── products/
-│   │   ├── components/
-│   │   │   ├── product-card/
-│   │   │   ├── product-form/
-│   │   │   └── product-list/
-│   │   │
-│   │   ├── graphql/
-│   │   │   ├── mutations/
-│   │   │   └── queries/
-│   │   │
-│   │   ├── model/
-│   │   └── sagas/
-│   │
-│   └── dashboard/
-│       ├── components/
-│       ├── graphql/
-│       ├── model/
-│       └── sagas/
-│
-├── entities/                      # Business entities
-│   ├── user/
-│   │   ├── components/
-│   │   │   └── user-card/
-│   │   └── model/
-│   │       ├── selectors.ts
+│   │   ├── graphql/               # Feature-specific GraphQL operations (optional)
+│   │   └── model/                 # Feature business logic / types
 │   │       └── types.ts
 │   │
-│   └── product/
+│   └── products/
+│       ├── components/
+│       └── model/
+│
+├── entities/                      # Business entities
+│   └── user/
 │       ├── components/
 │       └── model/
 │
 ├── shared/                        # Shared resources
 │   ├── api/                       # API configurations
-│   │   ├── graphql/
-│   │   │   ├── client.ts         # urql client setup
-│   │   │   └── schema.graphql    # GraphQL schema
-│   │   └── rest/
-│   │       └── axios.ts
+│   │   └── graphql/
+│   │       ├── client.ts          # GraphQL client setup
+│   │       └── schema.graphql     # GraphQL schema
 │   │
-│   ├── config/                   # Global configurations
-│   │   ├── auth.ts              # NextAuth config
+│   ├── config/                    # Global configurations
+│   │   ├── auth.ts                # NextAuth config
 │   │   ├── constants.ts
-│   │   └── env.ts               # Environment variables
+│   │   └── env.ts                 # Environment variables
 │   │
-│   ├── hooks/                   # Custom hooks
-│   │   ├── use-auth.ts
-│   │   ├── use-form.ts
-│   │   └── use-toast.ts
-│   │
-│   ├── lib/                     # Library configurations
-│   │   ├── redux/
-│   │   │   ├── store.ts
-│   │   │   └── root-reducer.ts
+│   ├── hooks/                     # Custom hooks
+│   ├── lib/                       # Library configurations (urql, zod, …)
 │   │   ├── urql/
 │   │   │   └── urql-client.ts
 │   │   └── zod/
 │   │       └── schemas.ts
 │   │
-│   ├── store/                   # Redux store
-│   │   ├── middleware.ts
-│   │   ├── root-saga.ts
-│   │   └── store.ts
-│   │
-│   ├── styles/                  # Global styles
+│   ├── providers/                 # React providers (theme, query client, your state library, …)
+│   ├── styles/                    # Global styles
 │   │   ├── globals.css
 │   │   └── theme.ts
 │   │
-│   ├── types/                   # Global TypeScript types
-│   │   ├── generated/           # Generated types
+│   ├── types/                     # Global TypeScript types
+│   │   ├── generated/
 │   │   │   └── graphql.ts
 │   │   ├── common.ts
 │   │   ├── env.d.ts
 │   │   └── next-auth.d.ts
 │   │
-│   └── utils/                   # Utility functions
-│       ├── date.ts
-│       ├── format.ts
-│       └── validation.ts
+│   └── utils/                     # Utility functions
 │
-├── widgets/                      # FSD widgets layer (composite blocks; not under shared/)
-│   ├── layouts/                  # Layout components
+├── widgets/                       # FSD widgets layer (composite blocks)
+│   ├── layouts/
 │   │   ├── dashboard-layout/
-│   │   │   ├── index.tsx
-│   │   │   └── dashboard-layout.test.tsx
 │   │   └── main-layout/
 │   │
-│   └── ui/                       # UI components
-│       ├── button/
-│       │   ├── index.tsx
-│       │   ├── button.test.tsx
-│       │   └── styles.ts
-│       ├── form/
-│       ├── modal/
-│       └── table/
+│   └── ui/
+│       └── button/
 │
-├── public/                       # Static files
-│   ├── fonts/
-│   └── images/
+├── public/                        # Static files
 │
-├── tests/                        # Test setup and utils
-│   ├── __mocks__/
-│   ├── setup.ts
-│   └── utils.ts
+├── tests/                         # Test setup and utils
 │
-├── .env.example                  # Example environment variables
-├── .eslintrc.js                 # ESLint configuration
-├── .gitignore                   # Git ignore rules
-├── .prettierrc                  # Prettier configuration
-├── codegen.yml                  # GraphQL codegen config
-├── jest.config.js               # Jest configuration
-├── next.config.js               # Next.js configuration
-├── package.json                 # Project dependencies
-├── postcss.config.js            # PostCSS configuration
-├── tailwind.config.js           # Tailwind CSS configuration
-├── tsconfig.json                # TypeScript configuration
-└── README.md                    # Project documentation
+├── .env.example                   # Example environment variables
+├── eslint.config.mjs              # ESLint configuration
+├── next.config.ts                 # Next.js configuration
+├── package.json
+├── postcss.config.mjs
+├── tsconfig.json
+└── README.md
+
+State management
+----------------
+This template intentionally ships **without** a global state library.
+Pick the one that fits your project (e.g. Zustand, Redux Toolkit + saga,
+Jotai, TanStack Query, XState, …) and place its setup under
+`shared/lib/<library>/` and the React provider under `shared/providers/`.

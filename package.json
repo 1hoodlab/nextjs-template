@@ -12,24 +12,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.11.2",
     "lucide-react": "^1.8.0",
     "next": "^16.2.3",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-redux": "^9.2.0",
-    "redux": "^5.0.1",
-    "redux-logger": "^3.0.6",
-    "redux-saga": "^1.4.2"
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
-    "@redux-devtools/extension": "^4.0.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/react-redux": "^7.1.34",
-    "@types/redux-logger": "^3.0.13",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.3",
     "postcss": "^8.5.9",

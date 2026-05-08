@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project bootstrapped with
+[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app),
+organized with a [Feature-Sliced Design](https://feature-sliced.design)
+folder structure (`app/`, `views/`, `widgets/`, `features/`, `entities/`,
+`shared/`).
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
 # or
-bun dev
+npm install && npm run dev
+# or
+yarn && yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see
+the result. Edit `views/home/home-view.tsx`; the page auto-updates.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## State management
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This template **does not include** a global state-management library.
+Add the one that fits your project, for example:
+
+- [Zustand](https://github.com/pmndrs/zustand) — small, hook-based store
+- [Redux Toolkit](https://redux-toolkit.js.org/) (optionally with
+  [redux-saga](https://redux-saga.js.org/) or RTK Query) — opinionated,
+  ecosystem-rich
+- [Jotai](https://jotai.org/) — atomic state
+- [TanStack Query](https://tanstack.com/query) — server state / caching
+- [XState](https://stately.ai/docs/xstate) — state machines
+
+Recommended placement:
+
+- Library setup → `shared/lib/<library>/`
+- React provider (if any) → `shared/providers/`, then mount in `app/layout.tsx`
+- Per-feature state (slices, atoms, machines, queries) →
+  `features/<feature>/model/`
+
+## Production build
+
+`next.config.ts` enables [`output: "standalone"`](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)
+and a multi-stage `Dockerfile` is provided. Build & run:
+
+```bash
+docker build -t nextjs-template .
+docker run -p 3000:3000 nextjs-template
+```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy is the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+See the [deployment docs](https://nextjs.org/docs/app/building-your-application/deploying)
+for other options.
