@@ -12,18 +12,19 @@
 
 ## File map
 
-| Path | Responsibility |
-|------|----------------|
-| `widgets/**` | FSD **widgets** layer (moved from `shared/widgets/`): layouts, composite UI |
-| `views/home/home-view.tsx` | **Home** screen composition; `"use client"` because it uses Redux dispatch |
-| `app/page.tsx` | Default route; server component that renders `<HomeView />` |
-| `docs/hierarchy-folder.docs` | Reflect `widgets/`, `views/`, and remove `shared/widgets` if present |
+| Path                         | Responsibility                                                              |
+| ---------------------------- | --------------------------------------------------------------------------- |
+| `widgets/**`                 | FSD **widgets** layer (moved from `shared/widgets/`): layouts, composite UI |
+| `views/home/home-view.tsx`   | **Home** screen composition; `"use client"` because it uses Redux dispatch  |
+| `app/page.tsx`               | Default route; server component that renders `<HomeView />`                 |
+| `docs/hierarchy-folder.docs` | Reflect `widgets/`, `views/`, and remove `shared/widgets` if present        |
 
 ---
 
 ### Task 1: Move `shared/widgets` → `widgets`
 
 **Files:**
+
 - Move: `shared/widgets/**` → `widgets/**`
 - Delete: empty `shared/widgets` directories after move
 
@@ -61,6 +62,7 @@ git commit -m "refactor(fsd): move widgets from shared/ to widgets/"
 ### Task 2: Add `views/home/home-view.tsx` and thin `app/page.tsx`
 
 **Files:**
+
 - Create: `views/home/home-view.tsx`
 - Modify: `app/page.tsx`
 
@@ -83,8 +85,8 @@ export function HomeView() {
     dispatch(loginRequest({ email: "user@example.com", password: "password" }));
   };
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-(family-name:--font-geist-sans)">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-(family-name:--font-geist-sans) sm:p-20">
+      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -93,10 +95,10 @@ export function HomeView() {
           height={38}
           priority
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-(family-name:--font-geist-mono)">
+        <ol className="list-inside list-decimal text-center font-(family-name:--font-geist-mono) text-sm sm:text-left">
           <li className="mb-2">
             Get started by editing{" "}
-            <code className="bg-black/5 dark:bg-white/6 px-1 py-0.5 rounded-sm font-semibold">
+            <code className="rounded-sm bg-black/5 px-1 py-0.5 font-semibold dark:bg-white/6">
               app/page.tsx
             </code>
             .
@@ -104,11 +106,11 @@ export function HomeView() {
           <li>Save and see your changes instantly.</li>
         </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div className="flex flex-col items-center gap-4 sm:flex-row">
           <button
             type="button"
             onClick={handleLogin}
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            className="bg-foreground text-background flex h-10 items-center justify-center gap-2 rounded-full border border-solid border-transparent px-4 text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:px-5 sm:text-base dark:hover:bg-[#ccc]"
           >
             <Image
               className="dark:invert"
@@ -120,7 +122,7 @@ export function HomeView() {
             Deploy now
           </button>
           <a
-            className="rounded-full border border-solid border-black/8 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+            className="flex h-10 items-center justify-center rounded-full border border-solid border-black/8 px-4 text-sm transition-colors hover:border-transparent hover:bg-[#f2f2f2] sm:h-12 sm:min-w-44 sm:px-5 sm:text-base dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
@@ -129,7 +131,7 @@ export function HomeView() {
           </a>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
@@ -216,6 +218,7 @@ git commit -m "feat(fsd): add HomeView and thin app home route"
 ### Task 3: Update `docs/hierarchy-folder.docs`
 
 **Files:**
+
 - Modify: `docs/hierarchy-folder.docs`
 
 - [ ] **Step 1: Document `views/` and correct `widgets/` location**
@@ -239,13 +242,13 @@ git commit -m "docs: align folders tree with FSD widgets and views"
 
 ## Spec coverage
 
-| Spec requirement | Task |
-|------------------|------|
-| Widgets not under `shared` | Task 1 |
-| `views` composes screen UI | Task 2 |
-| `app` thin, imports view | Task 2 |
+| Spec requirement                       | Task                                          |
+| -------------------------------------- | --------------------------------------------- |
+| Widgets not under `shared`             | Task 1                                        |
+| `views` composes screen UI             | Task 2                                        |
+| `app` thin, imports view               | Task 2                                        |
 | Next: server route + client view child | Task 2 (`page.tsx` server, `HomeView` client) |
-| Docs alignment | Task 3 |
+| Docs alignment                         | Task 3                                        |
 
 ---
 

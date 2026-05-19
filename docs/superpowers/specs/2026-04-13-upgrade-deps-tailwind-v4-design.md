@@ -17,10 +17,10 @@
 
 ## Constraints (decisions)
 
-| Decision | Choice |
-|----------|--------|
+| Decision               | Choice                                                  |
+| ---------------------- | ------------------------------------------------------- |
 | Upgrade aggressiveness | **B** — major bumps across the stack where majors exist |
-| Node.js | **22** (LTS) |
+| Node.js                | **22** (LTS)                                            |
 
 ## Recommended approach: phased migration
 
@@ -60,12 +60,12 @@
 
 ## Risks and rollback
 
-| Risk | Mitigation |
-|------|------------|
-| Peer dependency gridlock | Choose one verified version matrix; adjust in a single commit if needed |
-| ESLint / Next breaking rules | Follow migration guides; fix config and code in the same PR |
-| Tailwind v4 class or plugin gaps | Prefer visual parity; replace deprecated v3-only patterns per v4 docs |
-| **Rollback** | Revert the migration commit(s); keep a backup branch for large PRs |
+| Risk                             | Mitigation                                                              |
+| -------------------------------- | ----------------------------------------------------------------------- |
+| Peer dependency gridlock         | Choose one verified version matrix; adjust in a single commit if needed |
+| ESLint / Next breaking rules     | Follow migration guides; fix config and code in the same PR             |
+| Tailwind v4 class or plugin gaps | Prefer visual parity; replace deprecated v3-only patterns per v4 docs   |
+| **Rollback**                     | Revert the migration commit(s); keep a backup branch for large PRs      |
 
 ## Open items for implementation (not ambiguous requirements)
 
