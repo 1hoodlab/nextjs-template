@@ -1,9 +1,6 @@
-// features/auth/model/types.ts
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-}
+import type { User } from "@/entities/user/model/types";
+
+export type { User };
 
 export interface AuthState {
   user: User | null;

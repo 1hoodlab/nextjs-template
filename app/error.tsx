@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { AlertCircle } from "lucide-react";
 
+import { Button } from "@/widgets/ui/button/button";
+
 export default function Error({
   error,
   reset,
@@ -31,12 +33,7 @@ export default function Error({
             Error digest: {error.digest}
           </p>
         )}
-        <button
-          onClick={reset}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium focus:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2"
-        >
-          Try again
-        </button>
+        <Button onClick={reset}>Try again</Button>
       </div>
     </div>
   );

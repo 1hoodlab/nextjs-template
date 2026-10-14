@@ -1,106 +1,49 @@
 .
-├── .github/                          # GitHub specific files
-│   └── workflows/                    # CI/CD workflows
-│       └── main.yml
+├── app/                    # Next.js App Router (routing, layouts, error boundaries)
+│   ├── layout.tsx
+│   ├── page.tsx            # imports screen from views/
+│   ├── error.tsx
+│   ├── not-found.tsx
+│   └── globals.css
 │
-├── app/                             # Next.js App Router
-│   ├── (auth)/                      # Auth route group
-│   │   ├── login/page.tsx
-│   │   ├── register/page.tsx
-│   │   └── layout.tsx
-│   │
-│   ├── (dashboard)/                # Dashboard route group
-│   │   ├── analytics/page.tsx
-│   │   ├── products/[id]/page.tsx
-│   │   ├── settings/page.tsx
-│   │   └── layout.tsx
-│   │
-│   ├── api/                        # API routes
-│   │   └── graphql/route.ts
-│   │
-│   ├── error.tsx                   # Error boundary
-│   ├── layout.tsx                  # Root layout
-│   ├── loading.tsx                 # Loading UI
-│   ├── not-found.tsx              # 404 page
-│   └── page.tsx                   # Home route (imports HomeView from views/)
-│
-├── views/                         # FSD views layer — screen-level UI composition
+├── views/                  # FSD views — screen composition (maps to FSD "pages")
 │   └── home/
-│       └── home-view.tsx          # Home screen
+│       └── home-view.tsx
 │
-├── features/                      # Feature modules (UI + feature logic)
-│   ├── auth/
-│   │   ├── components/            # Feature-specific components
-│   │   │   ├── login-form/
-│   │   │   └── register-form/
-│   │   ├── graphql/               # Feature-specific GraphQL operations (optional)
-│   │   └── model/                 # Feature business logic / types
-│   │       └── types.ts
-│   │
-│   └── products/
-│       ├── components/
-│       └── model/
-│
-├── entities/                      # Business entities
-│   └── user/
-│       ├── components/
-│       └── model/
-│
-├── shared/                        # Shared resources
-│   ├── api/                       # API configurations
-│   │   └── graphql/
-│   │       ├── client.ts          # GraphQL client setup
-│   │       └── schema.graphql     # GraphQL schema
-│   │
-│   ├── config/                    # Global configurations
-│   │   ├── auth.ts                # NextAuth config
-│   │   ├── constants.ts
-│   │   └── env.ts                 # Environment variables
-│   │
-│   ├── hooks/                     # Custom hooks
-│   ├── lib/                       # Library configurations (urql, zod, …)
-│   │   ├── urql/
-│   │   │   └── urql-client.ts
-│   │   └── zod/
-│   │       └── schemas.ts
-│   │
-│   ├── providers/                 # React providers (theme, query client, your state library, …)
-│   ├── styles/                    # Global styles
-│   │   ├── globals.css
-│   │   └── theme.ts
-│   │
-│   ├── types/                     # Global TypeScript types
-│   │   ├── generated/
-│   │   │   └── graphql.ts
-│   │   ├── common.ts
-│   │   ├── env.d.ts
-│   │   └── next-auth.d.ts
-│   │
-│   └── utils/                     # Utility functions
-│
-├── widgets/                       # FSD widgets layer (composite blocks)
-│   ├── layouts/
-│   │   ├── dashboard-layout/
-│   │   └── main-layout/
-│   │
+├── widgets/                # Composite UI blocks (layouts, design-system primitives)
+│   ├── layouts/            # add main-layout, dashboard-layout when needed
 │   └── ui/
 │       └── button/
 │
-├── public/                        # Static files
+├── features/               # User-facing features (auth, checkout, …)
+│   └── auth/
+│       └── model/
+│           └── types.ts    # feature state types; entity types live in entities/
 │
-├── tests/                         # Test setup and utils
+├── entities/               # Business entities
+│   └── user/
+│       └── model/
+│           └── types.ts
 │
-├── .env.example                   # Example environment variables
-├── eslint.config.mjs              # ESLint configuration
-├── next.config.ts                 # Next.js configuration
-├── package.json
-├── postcss.config.mjs
-├── tsconfig.json
-└── README.md
+├── shared/                 # Cross-cutting code (config, api clients, providers, utils)
+│   ├── config/
+│   │   └── env.ts
+│   ├── hooks/
+│   ├── lib/
+│   ├── providers/
+│   └── utils/
+│
+├── public/
+├── Dockerfile
+├── eslint.config.mjs       # includes eslint-plugin-import-fsd
+└── next.config.ts          # standalone + security headers
 
-State management
-----------------
-This template intentionally ships **without** a global state library.
-Pick the one that fits your project (e.g. Zustand, Redux Toolkit + saga,
-Jotai, TanStack Query, XState, …) and place its setup under
-`shared/lib/<library>/` and the React provider under `shared/providers/`.
+Import rules (enforced by eslint-plugin-import-fsd)
+-------------------------------------------------
+app → views, widgets, features, entities, shared
+views → widgets, features, entities, shared
+widgets → features, entities, shared
+features → entities, shared (not other feature slices)
+entities → shared only
+
+State management: not included — add under shared/lib/ and shared/providers/.
